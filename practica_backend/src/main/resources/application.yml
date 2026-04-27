@@ -4,18 +4,18 @@ spring:
   application:
     name: usuarios
   datasource:
-    url: jdbc:mysql://localhost:3306/proyectofullstack
+    url: jdbc:mysql://localhost:3306/fullstackhibernate
     username: root
     password: admin
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
   flyway:
-    enabled: true
+    enabled: false
     locations: classpath:db/migration
     baseline-on-migrate: true
 springdoc:
