@@ -1,1 +1,11 @@
-<p>login works!</p>
+<div class="login-container">
+    <h2>Iniciar sesión</h2>
+  
+    <input type="text" placeholder="Usuario" [(ngModel)]="username">
+    <input type="password" placeholder="Contraseña" [(ngModel)]="password">
+  
+    <button (click)="login()">Entrar</button>
+  
+    <p *ngIf="error" style="color:red">{{ error }}</p>
+  </div>
+  
