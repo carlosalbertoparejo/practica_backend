@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -8,18 +9,23 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  username: string = '';
-  password: string = '';
+  nickUsuario: string = '';
+  contrasena: string = '';
   error: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
-  login() {
-    if (this.username === 'admin' && this.password === 'admin') {
-      localStorage.setItem('token', 'logged');
-      this.router.navigate(['/usuarios']);
-    } else {
-      this.error = 'Credenciales incorrectas';
-    }
+  onLogin() {
+    this.loginService.iniciarSesion(this.nickUsuario, this.contrasena)
+      .subscribe((resultado) => {
+        if (resultado === true) {
+          this.router.navigate(['/usuarios']);
+        } else {
+          this.error = 'Usuario o contraseña incorrectos';
+        }
+      });
   }
 }
