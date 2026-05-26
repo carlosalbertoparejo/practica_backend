@@ -1,22 +1,35 @@
 package es.ediae.master.programacion.gestionusuario.controller;
 
-import org.springframework.web.bind.annotation.*;
 import es.ediae.master.programacion.gestionusuario.entity.GeneroEntity;
-import es.ediae.master.programacion.gestionusuario.repository.GeneroRepository;
+import es.ediae.master.programacion.gestionusuario.service.GeneroService;
+import es.ediae.master.programacion.gestionusuario.service.UsuarioService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/generos")
 public class GeneroController {
 
-    private final GeneroRepository repo;
+    private final GeneroService generoService;
+    private final UsuarioService usuarioService;
 
-    public GeneroController(GeneroRepository repo) {
-        this.repo = repo;
+    public GeneroController(GeneroService generoService, UsuarioService usuarioService) {
+        this.generoService = generoService;
+        this.usuarioService = usuarioService;
     }
 
     @GetMapping
-    public List<GeneroEntity> listar() {
-        return repo.findAll();
+    public ResponseEntity<?> obtenerGeneros(
+            @RequestParam String nickUsuario,
+            @RequestParam String nickContrasena) {
+
+        if (!usuarioService.validarCredenciales(nickUsuario, nickContrasena)) {
+            return ResponseEntity.ok(null);
+        }
+
+        List<GeneroEntity> generos = generoService.obtenerTodos();
+        return ResponseEntity.ok(generos);
     }
 }

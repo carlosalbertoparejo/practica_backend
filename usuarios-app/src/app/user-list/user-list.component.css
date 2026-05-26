@@ -1,0 +1,34 @@
+.titulo {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .tabla-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .tabla-usuarios th,
+  .tabla-usuarios td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .tabla-usuarios th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .tabla-usuarios tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  
+  .sin-datos {
+    margin-top: 20px;
+    font-style: italic;
+    color: #777;
+  }
+  

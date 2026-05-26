@@ -1,22 +1,38 @@
 package es.ediae.master.programacion.gestionusuario.controller;
 
-import org.springframework.web.bind.annotation.*;
 import es.ediae.master.programacion.gestionusuario.entity.PuestoDeTrabajoEntity;
-import es.ediae.master.programacion.gestionusuario.repository.PuestoRepository;
+import es.ediae.master.programacion.gestionusuario.service.PuestoDeTrabajoService;
+import es.ediae.master.programacion.gestionusuario.service.UsuarioService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/puestos-de-trabajo")
 public class PuestoDeTrabajoController {
 
-    private final PuestoRepository repo;
+    private final PuestoDeTrabajoService puestoService;
+    private final UsuarioService usuarioService;
 
-    public PuestoDeTrabajoController(PuestoRepository repo) {
-        this.repo = repo;
+    public PuestoDeTrabajoController(PuestoDeTrabajoService puestoService, UsuarioService usuarioService) {
+        this.puestoService = puestoService;
+        this.usuarioService = usuarioService;
     }
 
+    // ---------------------------------------------------------
+    // 1) OBTENER TODOS LOS PUESTOS DE TRABAJO
+    // ---------------------------------------------------------
     @GetMapping
-    public List<PuestoDeTrabajoEntity> listar() {
-        return repo.findAll();
+    public ResponseEntity<?> obtenerPuestos(
+            @RequestParam String nickUsuario,
+            @RequestParam String nickContrasena) {
+
+        if (!usuarioService.validarCredenciales(nickUsuario, nickContrasena)) {
+            return ResponseEntity.ok(null);
+        }
+
+        List<PuestoDeTrabajoEntity> puestos = puestoService.obtenerTodos();
+        return ResponseEntity.ok(puestos);
     }
 }

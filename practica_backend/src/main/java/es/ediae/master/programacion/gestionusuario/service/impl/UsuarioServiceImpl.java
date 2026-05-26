@@ -40,4 +40,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void eliminar(Integer id) {
         repo.deleteById(id);
     }
+
+    @Override
+    public boolean iniciarSesion(String nickUsuario, String contrasena) {
+        return repo.findByNickUsuarioAndContrasena(nickUsuario, contrasena).isPresent();
+    }
+
+    @Override
+    public boolean validarCredenciales(String nickUsuario, String contrasena) {
+    return repo.findByNickUsuarioAndContrasena(nickUsuario, contrasena).isPresent();
+}
+
+
 }

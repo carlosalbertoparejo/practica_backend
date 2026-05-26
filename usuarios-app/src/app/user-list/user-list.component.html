@@ -1,2 +1,25 @@
-<h1 style="color: green">Página de usuarios cargada correctamente</h1>
-<p>TextoTextoTextoTexto.</p>
+<h2 class="titulo">Lista de usuarios</h2>
+
+<table class="tabla-usuarios">
+  <thead>
+    <tr>
+      <th>Nick</th>
+      <th>Nombre</th>
+      <th>Primer Apellido</th>
+      <th>Admin</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let u of usuarios">
+      <td>{{ u.nickUsuario }}</td>
+      <td>{{ u.nombre }}</td>
+      <td>{{ u.primerApellido }}</td>
+      <td>{{ u.esAdmin ? 'Sí' : 'No' }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="usuarios.length === 0" class="sin-datos">
+  No hay usuarios cargados.
+</div>
