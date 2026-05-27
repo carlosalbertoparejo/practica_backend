@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
@@ -40,7 +41,6 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarios);
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerPorId(
             @PathVariable Integer id,
@@ -55,7 +55,6 @@ public class UsuarioController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
 
     @PostMapping
     public ResponseEntity<?> crear(
@@ -74,7 +73,6 @@ public class UsuarioController {
         UsuarioEntity creado = service.guardar(u);
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizar(
@@ -103,7 +101,6 @@ public class UsuarioController {
 
         }).orElse(ResponseEntity.notFound().build());
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(
