@@ -11,7 +11,15 @@ export class GeneroService {
 
   constructor(private http: HttpClient) {}
 
-  listar(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  listar(nickUsuario: string, nickContrasena: string): Observable<any[]> {
+    const params = {
+      nickUsuario: nickUsuario,
+      nickContrasena: nickContrasena
+    };
+  
+    return this.http.get<any[]>(this.apiUrl, { params });
   }
+  
+
+  
 }

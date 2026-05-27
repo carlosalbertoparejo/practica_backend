@@ -20,9 +20,7 @@ public class PuestoDeTrabajoController {
         this.usuarioService = usuarioService;
     }
 
-    // ---------------------------------------------------------
-    // 1) OBTENER TODOS LOS PUESTOS DE TRABAJO
-    // ---------------------------------------------------------
+
     @GetMapping
     public ResponseEntity<?> obtenerPuestos(
             @RequestParam String nickUsuario,

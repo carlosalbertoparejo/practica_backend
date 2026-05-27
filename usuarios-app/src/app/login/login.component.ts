@@ -10,9 +10,10 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent {
 
-  nickUsuario: string = '';
+  usuario: string = '';
   contrasena: string = '';
   error: string = '';
+
 
   constructor(
     private loginService: LoginService,
@@ -22,23 +23,19 @@ export class LoginComponent {
 
   onLogin() {
     this.error = '';
-
-    this.loginService.iniciarSesion(this.nickUsuario, this.contrasena)
-      .subscribe({
-        next: (resultado) => {
-
-          if (resultado === true) {
-
-            this.authService.setCredenciales(this.nickUsuario, this.contrasena);
-
-            this.router.navigate(['/usuarios']);
-          } else {
-            this.error = 'Usuario o contraseña incorrectos';
-          }
-        },
-        error: () => {
-          this.error = 'Usuario o contraseña incorrectos';
-        }
-      });
+  
+    this.loginService.login(this.usuario, this.contrasena).subscribe(ok => {
+      if (ok) {
+  
+        // 🔥 ESTA LÍNEA ES LA QUE FALTABA
+        this.authService.setCredenciales(this.usuario, this.contrasena);
+  
+        this.router.navigate(['/usuarios']);
+      } else {
+        this.error = 'Usuario o contraseña incorrectos';
+      }
+    });
   }
+  
 }
+

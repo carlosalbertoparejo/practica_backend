@@ -5,13 +5,19 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PuestoService {
+export class PuestoDeTrabajoService {
 
-  private apiUrl = 'http://localhost:8080/api/puestos';
+  private apiUrl = 'http://localhost:8080/api/puestos-de-trabajo';
 
   constructor(private http: HttpClient) {}
 
-  listar(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  listar(nickUsuario: string, nickContrasena: string): Observable<any[]> {
+    const params = {
+      nickUsuario: nickUsuario,
+      nickContrasena: nickContrasena
+    };
+
+    return this.http.get<any[]>(this.apiUrl, { params });
   }
 }
+

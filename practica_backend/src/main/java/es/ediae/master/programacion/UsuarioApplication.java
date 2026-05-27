@@ -1,4 +1,4 @@
-package es.ediae.master.programacion.gestionusuario;
+package es.ediae.master.programacion;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;

@@ -14,13 +14,11 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
 
-    // Si NO hay sesión → redirigir al login
     if (!this.authService.isLoggedIn()) {
       this.router.navigate(['/login']);
       return false;
     }
 
-    // Si hay sesión → permitir acceso
     return true;
   }
 }

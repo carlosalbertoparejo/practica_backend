@@ -19,6 +19,7 @@ public class UsuarioController {
         this.service = service;
     }
 
+    // LOGIN CORRECTO
     @PostMapping("/iniciar-sesion")
     public ResponseEntity<Boolean> iniciarSesion(
             @RequestParam String nickUsuario,

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { GeneroService } from '../services/genero.service';
-import { PuestoService } from '../services/puesto.service';
+import { PuestoDeTrabajoService } from '../services/puesto.service';
 
 @Component({
   selector: 'app-popup',
@@ -11,7 +11,7 @@ export class PopupComponent implements OnInit {
 
   @Input() visible = false;
   @Input() modo: 'create' | 'update' = 'create';
-  @Input() usuario: any = {};
+  @Input() usuario: any = { direcciones: [] };
 
   @Output() cerrar = new EventEmitter<void>();
   @Output() guardar = new EventEmitter<any>();
@@ -30,19 +30,31 @@ export class PopupComponent implements OnInit {
 
   constructor(
     private generoService: GeneroService,
-    private puestoService: PuestoService
+    private puestoService: PuestoDeTrabajoService
   ) {}
 
   ngOnInit(): void {
-    this.generoService.listar().subscribe(g => this.generos = g);
-    this.puestoService.listar().subscribe(p => this.puestos = p);
+    this.cargarGeneros();
+    this.cargarPuestos();
+  }
 
-    if (!this.usuario.direcciones) {
-      this.usuario.direcciones = [];
-    }
+  cargarGeneros() {
+    this.generoService
+      .listar('admin', 'admin')
+      .subscribe(data => this.generos = data || []);
+  }
+
+  cargarPuestos() {
+    this.puestoService
+      .listar('admin', 'admin')
+      .subscribe(data => this.puestos = data || []);
   }
 
   agregarDireccion() {
+    if (!this.usuario.direcciones) {
+      this.usuario.direcciones = [];
+    }
+
     this.usuario.direcciones.push({ ...this.direccionEditando });
 
     this.direccionEditando = {
@@ -59,11 +71,11 @@ export class PopupComponent implements OnInit {
     this.usuario.direcciones.splice(index, 1);
   }
 
-  onGuardar() {
-    this.guardar.emit(this.usuario);
-  }
-
   onCerrar() {
     this.cerrar.emit();
+  }
+
+  onGuardar() {
+    this.guardar.emit(this.usuario);
   }
 }

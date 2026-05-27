@@ -42,4 +42,9 @@ export class UsuarioService {
 
     return this.http.delete<any>(`${this.apiUrl}/${id}`, { params });
   }
+
+  listarTodos(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+  
 }

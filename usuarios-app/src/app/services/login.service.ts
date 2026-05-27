@@ -11,7 +11,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  iniciarSesion(nickUsuario: string, contrasena: string): Observable<boolean> {
+  login(nickUsuario: string, contrasena: string): Observable<boolean> {
 
     const params = new HttpParams()
       .set('nickUsuario', nickUsuario)
