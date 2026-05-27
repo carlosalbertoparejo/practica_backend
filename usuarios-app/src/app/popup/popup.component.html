@@ -1,1 +1,87 @@
-<p>popup works!</p>
+<div class="overlay" *ngIf="visible">
+    <div class="popup">
+  
+      <h2>{{ modo === 'create' ? 'Create User' : 'Update User' }}</h2>
+  
+      <label>Username</label>
+      <input type="text" [(ngModel)]="usuario.nickUsuario">
+  
+      <label>Password</label>
+      <input type="password" [(ngModel)]="usuario.contrasena">
+  
+      <label>First Name</label>
+      <input type="text" [(ngModel)]="usuario.nombre">
+  
+      <label>First Surname</label>
+      <input type="text" [(ngModel)]="usuario.primerApellido">
+  
+      <label>Second Surname</label>
+      <input type="text" [(ngModel)]="usuario.segundoApellido">
+  
+      <label>Birthdate</label>
+      <input type="date" [(ngModel)]="usuario.fechaNacimiento">
+  
+      <label>Breakfast Time</label>
+      <input type="time" [(ngModel)]="usuario.horaDesayuno">
+
+      <label>Gender</label>
+      <select [(ngModel)]="usuario.genero">
+        <option *ngFor="let g of generos" [ngValue]="g">{{ g.nombre }}</option>
+      </select>
+
+      <label>Job Position</label>
+      <select [(ngModel)]="usuario.puestoDeTrabajo">
+        <option *ngFor="let p of puestos" [ngValue]="p">{{ p.nombre }}</option>
+      </select>
+
+      <h3>Addresses</h3>
+
+<table class="direcciones">
+  <thead>
+    <tr>
+      <th>Street type</th>
+      <th>Street name</th>
+      <th>No.</th>
+      <th>ZIP</th>
+      <th>City</th>
+      <th>Province</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let d of usuario.direcciones; let i = index">
+      <td>{{ d.tipoVia }}</td>
+      <td>{{ d.nombreVia }}</td>
+      <td>{{ d.numero }}</td>
+      <td>{{ d.codigoPostal }}</td>
+      <td>{{ d.poblacion }}</td>
+      <td>{{ d.provincia }}</td>
+      <td>
+        <button (click)="eliminarDireccion(i)">Delete</button>
+      </td>
+    </tr>
+
+    <tr>
+      <td><input [(ngModel)]="direccionEditando.tipoVia"></td>
+      <td><input [(ngModel)]="direccionEditando.nombreVia"></td>
+      <td><input [(ngModel)]="direccionEditando.numero"></td>
+      <td><input [(ngModel)]="direccionEditando.codigoPostal"></td>
+      <td><input [(ngModel)]="direccionEditando.poblacion"></td>
+      <td><input [(ngModel)]="direccionEditando.provincia"></td>
+      <td>
+        <button (click)="agregarDireccion()">Add</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+  
+      <div class="buttons">
+        <button (click)="onCerrar()">Cancel</button>
+        <button (click)="onGuardar()">Save</button>
+      </div>
+  
+    </div>
+  </div>
+  

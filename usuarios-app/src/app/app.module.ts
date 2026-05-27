@@ -6,17 +6,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// RUTAS CORRECTAS SEGÚN TU ESTRUCTURA REAL
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { PopupComponent } from './popup/popup.component';
+import { ConfirmPopupComponent } from './confirm-popup/confirm-popup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     UserListComponent,
-    PopupComponent
+    PopupComponent,
+    ConfirmPopupComponent
   ],
   imports: [
     BrowserModule,

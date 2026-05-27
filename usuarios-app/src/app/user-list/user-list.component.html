@@ -1,25 +1,80 @@
-<h2 class="titulo">Lista de usuarios</h2>
+<div class="header">
+  <button (click)="logout()">Log Out</button>
+</div>
 
-<table class="tabla-usuarios">
+<h2>Lista de Usuarios</h2>
+
+<div class="header">
+  <button (click)="logout()">Log Out</button>
+</div>
+
+<div class="actions">
+  <button (click)="crearUsuario()">Create</button>
+  <button [disabled]="!seleccionado" (click)="actualizarUsuario()">Update</button>
+  <button [disabled]="!seleccionado" (click)="eliminarUsuario()">Delete</button>
+</div>
+
+<h2>Lista de Usuarios</h2>
+
+
+<table>
   <thead>
     <tr>
-      <th>Nick</th>
-      <th>Nombre</th>
-      <th>Primer Apellido</th>
-      <th>Admin</th>
+      <th></th>
+      <th>Gender</th>
+      <th>Username</th>
+      <th>Full Name</th>
+      <th>Creation</th>
+      <th>Age</th>
+      <th>Breakfast</th>
+      <th>Job Position</th>
+      <th>Main Address</th>
+      <th>Extra Addresses</th>
     </tr>
   </thead>
 
   <tbody>
     <tr *ngFor="let u of usuarios">
+      <td>
+        <input type="radio"
+               name="selectedUser"
+               [checked]="u === seleccionado"
+               (change)="seleccionarUsuario(u)">
+      </td>
+
+      <td>{{ u.genero?.nombre }}</td>
       <td>{{ u.nickUsuario }}</td>
-      <td>{{ u.nombre }}</td>
-      <td>{{ u.primerApellido }}</td>
-      <td>{{ u.esAdmin ? 'Sí' : 'No' }}</td>
+      <td>{{ u.primerApellido }} {{ u.segundoApellido }}, {{ u.nombre }}</td>
+      <td>{{ u.fechaHoraCreacion }}</td>
+      <td>{{ u.edad }}</td>
+      <td>{{ u.horaDesayuno }}</td>
+      <td>{{ u.puestoDeTrabajo?.nombre }}</td>
+
+      <td>
+        {{ u.direccionPrincipal?.nombreCalle }}
+        {{ u.direccionPrincipal?.numeroCalle }}
+      </td>
+
+      <td>{{ u.otrasDirecciones }}</td>
     </tr>
   </tbody>
 </table>
 
-<div *ngIf="usuarios.length === 0" class="sin-datos">
-  No hay usuarios cargados.
-</div>
+<app-popup
+  [visible]="popupVisible"
+  [modo]="modo"
+  [usuario]="usuarioEditando"
+  (guardar)="guardarUsuario($event)"
+  (cerrar)="cerrarPopup()">
+</app-popup>
+
+<app-confirm-popup
+  [visible]="confirmVisible"
+  mensaje="Are you sure you want to delete this user?"
+  (aceptar)="confirmarDelete()"
+  (cancelar)="cancelarDelete()">
+</app-confirm-popup>
+
+
+
+
